@@ -8,7 +8,9 @@ function typeBadge(type) {
 }
 
 export default function NotificationsBell() {
-  const { items, unreadCount, markAllRead, clearAll, markRead } = useNotifications();
+  const { items, unreadCount, markAllRead, clearAll, markRead, enabled, toggleEnabled } =
+    useNotifications();
+
   const [open, setOpen] = useState(false);
   const panelRef = useRef(null);
 
@@ -27,9 +29,10 @@ export default function NotificationsBell() {
         onClick={() => setOpen((v) => !v)}
         className="relative grid h-10 w-10 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/15 text-white hover:bg-white/15 transition"
         aria-label="알림"
+        title={enabled ? "알림 ON" : "알림 OFF"}
       >
         <span className="text-lg">🔔</span>
-        {unreadCount > 0 && (
+        {unreadCount > 0 && enabled && (
           <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-red-600 px-1 text-[11px] font-extrabold text-white shadow">
             {unreadCount}
           </span>
@@ -37,10 +40,23 @@ export default function NotificationsBell() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-3 w-[360px] overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/10">
+        <div className="absolute right-0 mt-3 w-[380px] overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/10">
+          {/* 헤더 */}
           <div className="flex items-center justify-between px-4 py-3">
             <div className="font-extrabold text-slate-900">알림</div>
+
             <div className="flex gap-2">
+              <button
+                onClick={toggleEnabled}
+                className={`rounded-xl px-3 py-1 text-xs font-semibold ${
+                  enabled
+                    ? "bg-emerald-100 text-emerald-800 hover:bg-emerald-200"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                }`}
+              >
+                🔔 알림 {enabled ? "ON" : "OFF"}
+              </button>
+
               <button
                 onClick={markAllRead}
                 className="rounded-xl bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-200"
@@ -56,6 +72,7 @@ export default function NotificationsBell() {
             </div>
           </div>
 
+          {/* 리스트 */}
           <div className="max-h-[360px] overflow-auto px-2 pb-2">
             {items.length === 0 ? (
               <div className="px-3 py-10 text-center text-sm text-slate-500">
