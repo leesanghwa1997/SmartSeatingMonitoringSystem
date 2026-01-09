@@ -1,0 +1,989 @@
+[
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:19:58.816Z",
+    "receivedAt": "2026-01-09T09:19:59.270Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:19:58.816Z",
+    "receivedAt": "2026-01-09T09:19:59.301Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:00.341Z",
+    "receivedAt": "2026-01-09T09:20:00.310Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 2,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:20:00.341Z",
+    "receivedAt": "2026-01-09T09:20:00.360Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:01.400Z",
+    "receivedAt": "2026-01-09T09:20:01.416Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 2,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:20:01.400Z",
+    "receivedAt": "2026-01-09T09:20:01.429Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:02.472Z",
+    "receivedAt": "2026-01-09T09:20:02.545Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:20:02.472Z",
+    "receivedAt": "2026-01-09T09:20:02.548Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:03.539Z",
+    "receivedAt": "2026-01-09T09:20:03.530Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:20:03.539Z",
+    "receivedAt": "2026-01-09T09:20:03.558Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:04.598Z",
+    "receivedAt": "2026-01-09T09:20:04.593Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 2
+    },
+    "timestamp": "2026-01-09T09:20:04.598Z",
+    "receivedAt": "2026-01-09T09:20:04.616Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:05.656Z",
+    "receivedAt": "2026-01-09T09:20:05.638Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 0,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 2,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 2
+    },
+    "timestamp": "2026-01-09T09:20:05.656Z",
+    "receivedAt": "2026-01-09T09:20:05.675Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:06.714Z",
+    "receivedAt": "2026-01-09T09:20:06.743Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 2,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:20:06.714Z",
+    "receivedAt": "2026-01-09T09:20:06.745Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:07.773Z",
+    "receivedAt": "2026-01-09T09:20:07.750Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 0,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:20:07.773Z",
+    "receivedAt": "2026-01-09T09:20:07.801Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:08.842Z",
+    "receivedAt": "2026-01-09T09:20:08.893Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 0,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 2,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:20:08.842Z",
+    "receivedAt": "2026-01-09T09:20:08.896Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:09.900Z",
+    "receivedAt": "2026-01-09T09:20:09.867Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:20:09.900Z",
+    "receivedAt": "2026-01-09T09:20:09.918Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:20:10.957Z",
+    "receivedAt": "2026-01-09T09:20:10.942Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 2,
+      "seat_right": 1,
+      "back_front": 2,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 2
+    },
+    "timestamp": "2026-01-09T09:20:10.957Z",
+    "receivedAt": "2026-01-09T09:20:10.977Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:22:47.614Z",
+    "receivedAt": "2026-01-09T09:22:48.239Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:22:47.614Z",
+    "receivedAt": "2026-01-09T09:22:48.242Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:22:58.222Z",
+    "receivedAt": "2026-01-09T09:22:58.274Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 2,
+      "back_front": 2,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:22:58.222Z",
+    "receivedAt": "2026-01-09T09:22:58.276Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:23:08.289Z",
+    "receivedAt": "2026-01-09T09:23:08.309Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:23:08.289Z",
+    "receivedAt": "2026-01-09T09:23:08.330Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:23:18.361Z",
+    "receivedAt": "2026-01-09T09:23:18.348Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 0,
+      "seat_right": 2,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:23:18.361Z",
+    "receivedAt": "2026-01-09T09:23:18.398Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:23:28.429Z",
+    "receivedAt": "2026-01-09T09:23:28.482Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:23:28.429Z",
+    "receivedAt": "2026-01-09T09:23:28.483Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:23:38.496Z",
+    "receivedAt": "2026-01-09T09:23:38.519Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 2,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:23:38.496Z",
+    "receivedAt": "2026-01-09T09:23:38.536Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:23:48.565Z",
+    "receivedAt": "2026-01-09T09:23:48.655Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 2,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 0,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:23:48.565Z",
+    "receivedAt": "2026-01-09T09:23:48.657Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:23:58.635Z",
+    "receivedAt": "2026-01-09T09:23:58.691Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:23:58.635Z",
+    "receivedAt": "2026-01-09T09:23:58.693Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:24:08.702Z",
+    "receivedAt": "2026-01-09T09:24:08.726Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 2,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:24:08.702Z",
+    "receivedAt": "2026-01-09T09:24:08.740Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:24:18.770Z",
+    "receivedAt": "2026-01-09T09:24:18.864Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 2,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:24:18.770Z",
+    "receivedAt": "2026-01-09T09:24:18.865Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:24:28.839Z",
+    "receivedAt": "2026-01-09T09:24:28.900Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 1,
+      "seat_back": 1,
+      "seat_left": 1,
+      "seat_right": 1,
+      "back_front": 1,
+      "back_back": 1,
+      "back_left": 1,
+      "back_right": 1
+    },
+    "timestamp": "2026-01-09T09:24:28.839Z",
+    "receivedAt": "2026-01-09T09:24:28.903Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:31:45.991Z",
+    "receivedAt": "2026-01-09T09:31:46.870Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 2,
+      "seat_back": 3,
+      "seat_left": 3,
+      "seat_right": 3,
+      "back_front": 3,
+      "back_back": 2,
+      "back_left": 2,
+      "back_right": 3
+    },
+    "timestamp": "2026-01-09T09:31:45.991Z",
+    "receivedAt": "2026-01-09T09:31:46.879Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:31:56.852Z",
+    "receivedAt": "2026-01-09T09:31:56.902Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 4,
+      "seat_back": 1002,
+      "seat_left": 4,
+      "seat_right": 4,
+      "back_front": 4,
+      "back_back": 2,
+      "back_left": 4,
+      "back_right": 3
+    },
+    "timestamp": "2026-01-09T09:31:56.852Z",
+    "receivedAt": "2026-01-09T09:31:56.904Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:35:24.005Z",
+    "receivedAt": "2026-01-09T09:35:24.879Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:35:24.005Z",
+    "receivedAt": "2026-01-09T09:35:24.906Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:35:34.938Z",
+    "receivedAt": "2026-01-09T09:35:35.016Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 1000,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:35:34.938Z",
+    "receivedAt": "2026-01-09T09:35:35.017Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:35:45.006Z",
+    "receivedAt": "2026-01-09T09:35:44.991Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:35:45.006Z",
+    "receivedAt": "2026-01-09T09:35:45.041Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:35:55.074Z",
+    "receivedAt": "2026-01-09T09:35:55.086Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 972,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:35:55.074Z",
+    "receivedAt": "2026-01-09T09:35:55.100Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:36:05.134Z",
+    "receivedAt": "2026-01-09T09:36:05.223Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:36:05.134Z",
+    "receivedAt": "2026-01-09T09:36:05.224Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:36:15.203Z",
+    "receivedAt": "2026-01-09T09:36:15.186Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 568,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:36:15.203Z",
+    "receivedAt": "2026-01-09T09:36:15.239Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:36:25.272Z",
+    "receivedAt": "2026-01-09T09:36:25.296Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:36:25.272Z",
+    "receivedAt": "2026-01-09T09:36:25.305Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:36:35.339Z",
+    "receivedAt": "2026-01-09T09:36:35.329Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:36:35.339Z",
+    "receivedAt": "2026-01-09T09:36:35.373Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:36:45.406Z",
+    "receivedAt": "2026-01-09T09:36:45.390Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:36:45.406Z",
+    "receivedAt": "2026-01-09T09:36:45.442Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:36:55.474Z",
+    "receivedAt": "2026-01-09T09:36:55.503Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:36:55.474Z",
+    "receivedAt": "2026-01-09T09:36:55.510Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:38:01.495Z",
+    "receivedAt": "2026-01-09T09:38:01.961Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:01.495Z",
+    "receivedAt": "2026-01-09T09:38:02.005Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:38:07.037Z",
+    "receivedAt": "2026-01-09T09:38:07.021Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 996,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:07.037Z",
+    "receivedAt": "2026-01-09T09:38:07.072Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:38:12.105Z",
+    "receivedAt": "2026-01-09T09:38:12.098Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 988,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:12.105Z",
+    "receivedAt": "2026-01-09T09:38:12.131Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:38:17.164Z",
+    "receivedAt": "2026-01-09T09:38:17.218Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:17.164Z",
+    "receivedAt": "2026-01-09T09:38:17.221Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:38:22.232Z",
+    "receivedAt": "2026-01-09T09:38:22.236Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:22.232Z",
+    "receivedAt": "2026-01-09T09:38:22.258Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:38:27.291Z",
+    "receivedAt": "2026-01-09T09:38:27.357Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:27.291Z",
+    "receivedAt": "2026-01-09T09:38:27.359Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": true,
+    "detectedAt": "2026-01-09T09:38:32.350Z",
+    "receivedAt": "2026-01-09T09:38:32.376Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 984,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 979,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:32.350Z",
+    "receivedAt": "2026-01-09T09:38:32.388Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:38:37.423Z",
+    "receivedAt": "2026-01-09T09:38:37.495Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:37.423Z",
+    "receivedAt": "2026-01-09T09:38:37.497Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:38:42.491Z",
+    "receivedAt": "2026-01-09T09:38:42.511Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:42.491Z",
+    "receivedAt": "2026-01-09T09:38:42.516Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:38:47.551Z",
+    "receivedAt": "2026-01-09T09:38:47.631Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:47.551Z",
+    "receivedAt": "2026-01-09T09:38:47.632Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:38:52.610Z",
+    "receivedAt": "2026-01-09T09:38:52.648Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:52.610Z",
+    "receivedAt": "2026-01-09T09:38:52.649Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "isSeated": false,
+    "detectedAt": "2026-01-09T09:38:57.680Z",
+    "receivedAt": "2026-01-09T09:38:57.768Z",
+    "from": "113.198.234.102"
+  },
+  {
+    "sensors": {
+      "seat_front": 0,
+      "seat_back": 0,
+      "seat_left": 0,
+      "seat_right": 0,
+      "back_front": 0,
+      "back_back": 0,
+      "back_left": 0,
+      "back_right": 0
+    },
+    "timestamp": "2026-01-09T09:38:57.680Z",
+    "receivedAt": "2026-01-09T09:38:57.769Z",
+    "from": "113.198.234.102"
+  }
+]
