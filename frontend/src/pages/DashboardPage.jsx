@@ -93,24 +93,34 @@ export default function DashboardPage() {
     const prev = prevLevelRef.current;
     const curr = state.level;
 
-    if (prev !== "danger" && curr === "danger") {
+    // normal이 아니면서, 이전 상태와 다를 때 (등급 상향 or 변경) 경고
+    // 또는 같은 'warn'/'danger'라도 메시지가 바뀔 수 있으므로... (일단은 레벨 변경 시에만)
+    // 조건: "danger" 진입 시 OR "warn" 진입 시.
+    // 기존: if (prev !== "danger" && curr === "danger")
+    // 변경: warn 또는 danger 진입 시
+    if ((curr === "danger" || curr === "warn") && prev !== curr) {
+      const isDanger = curr === "danger";
+
+      const title = isDanger ? "위험 경고" : "자세 주의";
+      const body = state.posture || (isDanger ? "장시간 상태가 감지되었습니다." : "자세를 점검하세요.");
+
       add({
-        type: "danger",
-        title: "착석 경고",
-        message: "장시간 상태가 감지되었습니다.",
+        type: isDanger ? "danger" : "warning", // assuming 'warning' type exists in notifications.jsx? no, let's check.
+        title: title,
+        message: body,
       });
 
       if (enabled && "Notification" in window) {
         if (Notification.permission === "granted") {
-          new Notification("착석 경고", {
-            body: "장시간 상태가 감지되었습니다. 휴식을 권장합니다.",
+          new Notification(title, {
+            body: body,
           });
         }
       }
     }
 
     prevLevelRef.current = curr;
-  }, [state.level, add, enabled]);
+  }, [state.level, state.posture, add, enabled]);
 
   const ui = useMemo(() => levelUI(state.level), [state.level]);
 
@@ -154,6 +164,7 @@ export default function DashboardPage() {
                 seatedMinutes: 0,
                 detectedAt: null,
                 level: "normal",
+                posture: "초기화됨"
               });
             }}
             className="rounded-lg bg-slate-900 px-3 py-1 text-xs font-bold text-white hover:bg-slate-800"
@@ -164,7 +175,7 @@ export default function DashboardPage() {
       </div>
 
       {/* 카드 */}
-      <div className="mt-6 grid gap-4 md:grid-cols-3">
+      <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {/* 착석 상태 */}
         <div className="rounded-2xl bg-white/70 p-5 ring-1">
           <div className="text-xs text-slate-500">착석 상태</div>
@@ -186,15 +197,26 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* 현재 자세 (New) */}
+        <div className="rounded-2xl bg-white/70 p-5 ring-1">
+          <div className="text-xs text-slate-500">현재 자세 판별</div>
+          <div className="mt-2 text-xl font-extrabold text-slate-800 break-keep">
+            {state.posture || "분석 중..."}
+          </div>
+        </div>
+
         {/* 경고 안내 */}
         <div className="rounded-2xl bg-white/70 p-5 ring-1">
           <div className="text-xs text-slate-500">경고 안내</div>
-          <div className="mt-2 font-extrabold">{ui.desc}</div>
+          <div className="mt-2 font-bold text-sm text-slate-700 break-keep">
+            {/* 상태가 정상이 아니면 자세 내용을 한 번 더 강조하거나 ui.desc 사용 */}
+            {state.level === 'normal' ? ui.desc : (state.posture || ui.desc)}
+          </div>
         </div>
       </div>
 
       <div className="mt-4 text-xs text-slate-500 text-right">
-        Tip: 상태는 서버에서 계산되며 5초 주기로 동기화됩니다.
+        Tip: 상태는 센서 값(0~1023)을 분석하여 5초 주기로 갱신됩니다.
       </div>
     </div>
   );

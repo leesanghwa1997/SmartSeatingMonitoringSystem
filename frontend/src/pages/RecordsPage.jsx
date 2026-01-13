@@ -47,14 +47,14 @@ export default function RecordsPage() {
 
     const fetchAvgHistory = async () => {
       try {
-        const res = await fetch("/api/agg/10min");
+        const res = await fetch("/api/agg/10s");
         const data = await res.json();
 
         if (mounted) {
           setAvgHistory(data);
         }
       } catch (e) {
-        console.error("❌ 10분 집계 데이터 로드 실패", e);
+        console.error("❌ 10초 집계 데이터 로드 실패", e);
       }
     };
 
@@ -147,7 +147,7 @@ export default function RecordsPage() {
         <div className="mb-4 flex items-center gap-2">
           <span className="text-lg">⏱</span>
           <div className="font-extrabold">
-            시간별 평균 압력 (10분 단위)
+            시간별 평균 압력 (10초 단위)
           </div>
         </div>
 

@@ -15,11 +15,11 @@ export default function AveragePressureChart({ data }) {
         <XAxis dataKey="time" />
         <YAxis />
         <Tooltip />
-        <Bar dataKey="avg" fill="#cbd5e1" radius={[6, 6, 0, 0]} />
+        <Bar dataKey="avg" fill="#a7f3d0" radius={[6, 6, 0, 0]} />
         <Line
           type="monotone"
           dataKey="avg"
-          stroke="#0f172a"
+          stroke="#059669"
           strokeWidth={2}
           dot={{ r: 3 }}
         />
