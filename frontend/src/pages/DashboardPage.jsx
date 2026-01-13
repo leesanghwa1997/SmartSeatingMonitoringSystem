@@ -1,9 +1,9 @@
-import { useSeatStatus } from "../hooks/useSeatStatus";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useNotifications } from "../app/notifications";
 
-/**
- * 경고 단계별 UI 매핑
- */
+/* ===============================
+   단계별 UI
+=============================== */
 function levelUI(level) {
   if (level === "danger") {
     return {
@@ -43,19 +43,84 @@ function formatKoreanTime(iso) {
 }
 
 export default function DashboardPage() {
-  const data = useSeatStatus();
+  const { add, enabled } = useNotifications();
 
-  /** ✅ data 없으면 여기서 컷 */
-  if (!data) {
-    return <div className="p-6 text-slate-500">로딩 중...</div>;
-  }
+  /* ===============================
+     상태 (서버 단일 진실)
+  =============================== */
+  const [state, setState] = useState({
+    isSeated: false,
+    seatedMinutes: 0,
+    detectedAt: null,
+    level: "normal",
+  });
 
-  const { isSeated, seatedMinutes, detectedAt, level, __test } = data;
+  /* 🔐 danger 중복 알림 방지 */
+  const prevLevelRef = useRef("normal");
 
-  const ui = useMemo(() => levelUI(level), [level]);
+  /* ===============================
+     ✅ API Polling (5초)
+  =============================== */
+  useEffect(() => {
+    let mounted = true;
 
+    const fetchState = async () => {
+      try {
+        const res = await fetch("/api/state/current");
+        const data = await res.json();
+
+        if (mounted) {
+          setState(data);
+        }
+      } catch {
+        // 서버 일시적 문제 → 무시 (UI 유지)
+      }
+    };
+
+    fetchState(); // 최초 1회
+    const id = setInterval(fetchState, 5000);
+
+    return () => {
+      mounted = false;
+      clearInterval(id);
+    };
+  }, []);
+
+  /* ===============================
+     🔔 danger 진입 시 알림 (1회)
+  =============================== */
+  useEffect(() => {
+    const prev = prevLevelRef.current;
+    const curr = state.level;
+
+    if (prev !== "danger" && curr === "danger") {
+      add({
+        type: "danger",
+        title: "착석 경고",
+        message: "장시간 상태가 감지되었습니다.",
+      });
+
+      if (enabled && "Notification" in window) {
+        if (Notification.permission === "granted") {
+          new Notification("착석 경고", {
+            body: "장시간 상태가 감지되었습니다. 휴식을 권장합니다.",
+          });
+        }
+      }
+    }
+
+    prevLevelRef.current = curr;
+  }, [state.level, add, enabled]);
+
+  const ui = useMemo(() => levelUI(state.level), [state.level]);
+
+  /* ===============================
+     렌더링
+  =============================== */
   return (
-    <div className={`rounded-3xl bg-gradient-to-br ${ui.bg} p-6 shadow-lg ring-1 ${ui.ring}`}>
+    <div
+      className={`rounded-3xl bg-gradient-to-br ${ui.bg} p-6 shadow-lg ring-1 ${ui.ring}`}
+    >
       {/* 헤더 */}
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
         <div>
@@ -66,12 +131,35 @@ export default function DashboardPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className={`${ui.badge} rounded-full px-3 py-1 text-sm font-bold text-white`}>
+          <span
+            className={`${ui.badge} rounded-full px-3 py-1 text-sm font-bold text-white`}
+          >
             {ui.title}
           </span>
+
           <span className="rounded-full bg-white/70 px-3 py-1 text-xs">
-            업데이트: {formatKoreanTime(detectedAt)}
+            업데이트: {formatKoreanTime(state.detectedAt)}
           </span>
+          <button
+            onClick={async () => {
+              if (!confirm("착석 기록을 초기화할까요?")) return;
+
+              await fetch("/api/state/reset", {
+                method: "POST",
+              });
+
+              // 즉시 UI 반영
+              setState({
+                isSeated: false,
+                seatedMinutes: 0,
+                detectedAt: null,
+                level: "normal",
+              });
+            }}
+            className="rounded-lg bg-slate-900 px-3 py-1 text-xs font-bold text-white hover:bg-slate-800"
+          >
+            초기화
+          </button>
         </div>
       </div>
 
@@ -82,53 +170,20 @@ export default function DashboardPage() {
           <div className="text-xs text-slate-500">착석 상태</div>
           <div className="mt-2 flex justify-between items-center">
             <div className="text-3xl font-black">
-              {isSeated ? "착석" : "미착석"}
+              {state.isSeated ? "착석" : "미착석"}
             </div>
-            <div className="text-2xl">{isSeated ? "✅" : "⛔️"}</div>
+            <div className="text-2xl">
+              {state.isSeated ? "✅" : "⛔️"}
+            </div>
           </div>
-
-          {/* 🧪 테스트 버튼 */}
-          {__test && (
-            <div className="mt-4 flex gap-2">
-              <button
-                onClick={__test.startSeated}
-                className="rounded-xl bg-slate-100 px-3 py-1 text-xs"
-              >
-                착석 시작
-              </button>
-              <button
-                onClick={__test.stopSeated}
-                className="rounded-xl bg-slate-100 px-3 py-1 text-xs"
-              >
-                미착석
-              </button>
-            </div>
-          )}
         </div>
 
         {/* 착석 시간 */}
         <div className="rounded-2xl bg-white/70 p-5 ring-1">
           <div className="text-xs text-slate-500">현재 착석 시간</div>
           <div className="mt-2 text-3xl font-black">
-            {seatedMinutes} <span className="text-base">min</span>
+            {state.seatedMinutes} <span className="text-base">min</span>
           </div>
-
-          {__test && (
-            <div className="mt-4 flex gap-2">
-              <button
-                onClick={() => __test.addMinutes(10)}
-                className="rounded-xl bg-slate-100 px-3 py-1 text-xs"
-              >
-                +10분
-              </button>
-              <button
-                onClick={() => __test.subMinutes(10)}
-                className="rounded-xl bg-slate-100 px-3 py-1 text-xs"
-              >
-                -10분
-              </button>
-            </div>
-          )}
         </div>
 
         {/* 경고 안내 */}
@@ -136,6 +191,10 @@ export default function DashboardPage() {
           <div className="text-xs text-slate-500">경고 안내</div>
           <div className="mt-2 font-extrabold">{ui.desc}</div>
         </div>
+      </div>
+
+      <div className="mt-4 text-xs text-slate-500 text-right">
+        Tip: 상태는 서버에서 계산되며 5초 주기로 동기화됩니다.
       </div>
     </div>
   );

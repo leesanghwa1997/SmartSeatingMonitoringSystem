@@ -1,14 +1,48 @@
+// src/utils/transformSensors.js
+
 export function toChartData(sensors) {
   if (!sensors) return [];
 
   return [
-    { key: "seat_front", label: "좌판-앞", value: sensors.seat_front },
-    { key: "seat_back", label: "좌판-뒤", value: sensors.seat_back },
-    { key: "seat_left", label: "좌판-왼쪽", value: sensors.seat_left },
-    { key: "seat_right", label: "좌판-오른쪽", value: sensors.seat_right },
-    { key: "back_front", label: "등받이-앞", value: sensors.back_front },
-    { key: "back_back", label: "등받이-뒤", value: sensors.back_back },
-    { key: "back_left", label: "등받이-왼쪽", value: sensors.back_left },
-    { key: "back_right", label: "등받이-오른쪽", value: sensors.back_right },
+    {
+      key: "back_top_left",
+      label: "등받이 좌측 상단",
+      value: sensors.back_top_left ?? 0,
+    },
+    {
+      key: "back_top_right",
+      label: "등받이 우측 상단",
+      value: sensors.back_top_right ?? 0,
+    },
+    {
+      key: "back_bottom_left",
+      label: "등받이 좌측 하단",
+      value: sensors.back_bottom_left ?? 0,
+    },
+    {
+      key: "back_bottom_right",
+      label: "등받이 우측 하단",
+      value: sensors.back_bottom_right ?? 0,
+    },
+    {
+      key: "seat_top_left",
+      label: "좌판 좌측 상단",
+      value: sensors.seat_top_left ?? 0,
+    },
+    {
+      key: "seat_top_right",
+      label: "좌판 우측 상단",
+      value: sensors.seat_top_right ?? 0,
+    },
+    {
+      key: "seat_bottom_left",
+      label: "좌판 좌측 하단",
+      value: sensors.seat_bottom_left ?? 0,
+    },
+    {
+      key: "seat_bottom_right",
+      label: "좌판 우측 하단",
+      value: sensors.seat_bottom_right ?? 0,
+    },
   ];
 }

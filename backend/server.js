@@ -9,163 +9,235 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 const PORT = process.env.PORT || 8080;
+
+// =====================
+// 파일 경로
+// =====================
 const DATA_PATH = path.join(__dirname, 'data/sensor_data.json');
+const AGG_PATH  = path.join(__dirname, 'data/sensor_agg_10min.json');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend/dist'), { index: false }));
 
-/* -------------------------
-   공통 유틸
--------------------------- */
-
-function readJsonFile() {
-    try {
-        return JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
-    } catch {
-        return [];
-    }
+// =====================
+// 공통 유틸
+// =====================
+function readJsonFile(filePath) {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch {
+    return [];
+  }
 }
 
-function appendJsonFile(newData) {
-    const data = readJsonFile();
-    data.push(newData);
-    fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
+function appendJsonFile(filePath, newData) {
+  const data = readJsonFile(filePath);
+  data.push(newData);
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
 
 function broadcast(data) {
-    const msg = JSON.stringify(data);
-    wss.clients.forEach(client => {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send(msg);
-        }
-    });
+  const msg = JSON.stringify(data);
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(msg);
+    }
+  });
 }
 
-/* -------------------------
-   index.html 서빙
--------------------------- */
-app.get(/.*/, (req, res) => {
-    const indexPath = path.join(__dirname, '../frontend/dist/index.html');
+// =====================
+// ⏱ 10분 집계 상태
+// =====================
+let aggBuffer = [];
+let lastAggTime = Date.now();
+const AGG_INTERVAL = 10 * 60 * 1000;
 
-    fs.readFile(indexPath, 'utf8', (err, html) => {
-        if (err) return res.status(500).send('Server Error');
+// =========================================================
+// 🔹 착석 상태 계산 (서버 단일 진실)
+// =========================================================
+function getCurrentSeatState() {
+  const data = readJsonFile(DATA_PATH);
+  const seatLogs = data.filter(d => typeof d.isSeated === 'boolean');
 
-        const injectedScript = `
-                <script>
-                (function () {
-                    console.log(
-                        '%c🚀 WebSocket 연결 시도 중...',
-                        'color: orange; font-size: 16px; font-weight: bold;'
-                    );
+  if (seatLogs.length === 0) {
+    return {
+      isSeated: false,
+      seatedMinutes: 0,
+      detectedAt: null,
+      level: 'normal'
+    };
+  }
 
-                    const ws = new WebSocket('ws://' + window.location.host);
+  const last = seatLogs[seatLogs.length - 1];
+  let seatedMinutes = 0;
 
-                    ws.onopen = () => {
-                     console.log(
-                         '%c✅ WebSocket 연결 성공!',
-                     'color: #00ff00; font-size: 18px; font-weight: bold;'
-                        );  
-                 };
+  if (last.isSeated) {
+    const reversed = [...seatLogs].reverse();
+    const stop = reversed.find(d => d.isSeated === false);
 
-                    ws.onmessage = (event) => {
-                        try {
-                            const data = JSON.parse(event.data);
-                            console.log(
-                                '%c📩 서버 데이터:',
-                                'color: cyan; font-weight: bold;',
-                                data
-                            );
-                        } catch (e) {
-                            console.log(
-                                '%c📩 서버 메시지:',
-                                'color: cyan;',
-                                event.data
-                            );
-                        }
-                    };
+    const startTime = stop
+      ? new Date(stop.detectedAt).getTime()
+      : new Date(seatLogs[0].detectedAt).getTime();
 
-                    ws.onerror = (err) => {
-                        console.error(
-                            '%c❌ WebSocket 에러 발생',
-                          'color: red; font-size: 16px; font-weight: bold;',
-                         err
-                        );
-                    };
+    seatedMinutes = Math.floor((Date.now() - startTime) / 60000);
+  }
 
-                    ws.onclose = () => {
-                        console.log(
-                            '%c❌ WebSocket 연결 종료',
-                            'color: red; font-size: 16px; font-weight: bold;'
-                        );
-                    };
-                })();
-                </script>
-                `;
+  let level = 'normal';
+  if (seatedMinutes >= 2) level = 'danger';
+  else if (seatedMinutes >= 1) level = 'warn';
 
+  return {
+    isSeated: last.isSeated,
+    seatedMinutes,
+    detectedAt: last.detectedAt,
+    level
+  };
+}
 
-        res.send(html.replace('</body>', injectedScript + '</body>'));
-    });
+// =========================================================
+// ✅ API
+// =========================================================
+
+// 1️⃣ 대시보드 상태
+app.get('/api/state/current', (req, res) => {
+  res.json(getCurrentSeatState());
 });
 
-/* -------------------------
-   WebSocket 처리 (핵심 수정)
--------------------------- */
-wss.on('connection', (ws, req) => {
-    const ip = req.socket.remoteAddress;
-    console.log(`🔌 Client connected from ${ip}`);
+// 2️⃣ 10분 평균 히스토리
+app.get('/api/agg/10min', (req, res) => {
+  const data = readJsonFile(AGG_PATH);
+  const now = Date.now();
+  const DAY = 24 * 60 * 60 * 1000;
 
-    // 접속자 수 확인
-    console.log(`👥 현재 연결 수: ${wss.clients.size}`);
-
-    // 접속 시 기존 데이터 전송
-    ws.send(JSON.stringify({
-        type: 'init',
-        payload: readJsonFile()
+  const result = data
+    .filter(d => now - new Date(d.time).getTime() <= DAY)
+    .map(d => ({
+      time: new Date(d.time).toLocaleTimeString('ko-KR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }),
+      avg: d.avg
     }));
 
-    ws.on('message', (message) => {
-        const raw = message.toString();
-        console.log(`📥 FROM ${ip}:`, raw);
-
-        try {
-            const data = JSON.parse(raw);
-
-            const packet = {
-                ...data,
-                receivedAt: new Date().toISOString(),
-                from: ip
-            };
-
-            // 파일 저장
-            appendJsonFile(packet);
-
-            // 모든 클라이언트로 브로드캐스트
-            broadcast({
-                type: 'sensor',
-                payload: packet
-            });
-
-            // 🔁 ACK (라즈베리파이 확인용)
-            ws.send(JSON.stringify({
-                type: 'ack',
-                msg: '서버에서 데이터 수신 완료',
-                at: new Date().toISOString()
-            }));
-
-        } catch (err) {
-            console.error('❌ JSON 파싱 실패:', err);
-        }
-    });
-
-    ws.on('close', () => {
-        console.log(`❌ Client disconnected from ${ip}`);
-        console.log(`👥 현재 연결 수: ${wss.clients.size}`);
-    });
+  res.json(result);
 });
 
-/* -------------------------
-   서버 시작
--------------------------- */
+// 🔥 3️⃣ 최신 센서 분포 (A안 핵심)
+app.get('/api/sensors/latest', (req, res) => {
+  const data = readJsonFile(DATA_PATH);
+
+  const lastSensor = [...data]
+    .reverse()
+    .find(d => d.sensors);
+
+  res.json(lastSensor ? lastSensor.sensors : null);
+});
+
+// 🔥 4️⃣ 착석 기록 초기화
+app.post('/api/state/reset', (req, res) => {
+  try {
+    fs.writeFileSync(DATA_PATH, JSON.stringify([], null, 2));
+    fs.writeFileSync(AGG_PATH, JSON.stringify([], null, 2));
+    aggBuffer = [];
+    lastAggTime = Date.now();
+
+    console.log('🧹 착석 기록 전체 초기화 완료');
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('❌ 초기화 실패', err);
+    res.status(500).json({ ok: false });
+  }
+});
+
+// =========================================================
+// WebSocket (라즈베리 ↔ 서버 전용)
+// =========================================================
+wss.on('connection', (ws, req) => {
+  const ip = req.socket.remoteAddress;
+  console.log(`🔌 Client connected from ${ip}`);
+
+  ws.on('message', message => {
+    try {
+      const data = JSON.parse(message.toString());
+
+      const packet = {
+        ...data,
+        receivedAt: new Date().toISOString(),
+        from: ip
+      };
+
+      // raw 저장
+      appendJsonFile(DATA_PATH, packet);
+
+      // 상태 이벤트 처리
+      if (typeof data.isSeated === 'boolean') {
+        broadcast({
+          type: 'state',
+          payload: getCurrentSeatState()
+        });
+      }
+
+      // 10분 집계
+      if (data.sensors) {
+        aggBuffer.push({
+          sensors: data.sensors,
+          receivedAt: packet.receivedAt
+        });
+      }
+
+      ws.send(JSON.stringify({ type: 'ack' }));
+    } catch (err) {
+      console.error('❌ JSON 파싱 실패', err);
+    }
+  });
+});
+
+// =========================================================
+// ❤️ Heartbeat (연결 유지용)
+// =========================================================
+setInterval(() => {
+  broadcast({ type: 'heartbeat', at: new Date().toISOString() });
+}, 2000);
+
+// =========================================================
+// ⏱ 10분 집계 실행
+// =========================================================
+setInterval(() => {
+  if (aggBuffer.length === 0) return;
+
+  let sum = 0;
+  let count = 0;
+
+  aggBuffer.forEach(item => {
+    Object.values(item.sensors).forEach(v => {
+      sum += v;
+      count++;
+    });
+  });
+
+  const avg = Number((sum / count).toFixed(2));
+
+  appendJsonFile(AGG_PATH, {
+    time: new Date(lastAggTime).toISOString(),
+    avg,
+    samples: aggBuffer.length
+  });
+
+  aggBuffer = [];
+  lastAggTime = Date.now();
+}, AGG_INTERVAL);
+
+// =========================================================
+// SPA catch-all
+// =========================================================
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
+
+// =========================================================
+// 서버 시작
+// =========================================================
 server.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Server started on port ${PORT}`);
+  console.log(`🚀 Server started on port ${PORT}`);
 });
