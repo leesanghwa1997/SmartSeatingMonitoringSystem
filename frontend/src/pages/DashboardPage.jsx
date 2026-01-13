@@ -1,0 +1,201 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useNotifications } from "../app/notifications";
+
+/* ===============================
+   단계별 UI
+=============================== */
+function levelUI(level) {
+  if (level === "danger") {
+    return {
+      bg: "from-rose-100 via-red-50 to-white",
+      badge: "bg-red-600",
+      ring: "ring-red-200/60",
+      title: "경고",
+      desc: "장시간 상태가 감지되었습니다. 휴식을 권장합니다.",
+    };
+  }
+  if (level === "warn") {
+    return {
+      bg: "from-amber-100 via-orange-50 to-white",
+      badge: "bg-orange-600",
+      ring: "ring-orange-200/60",
+      title: "주의",
+      desc: "지속 시간이 증가하고 있습니다. 자세를 점검하세요.",
+    };
+  }
+  return {
+    bg: "from-emerald-100 via-green-50 to-white",
+    badge: "bg-emerald-600",
+    ring: "ring-emerald-200/60",
+    title: "정상",
+    desc: "현재 상태가 정상입니다.",
+  };
+}
+
+function formatKoreanTime(iso) {
+  if (!iso) return "-";
+  return new Date(iso).toLocaleString("ko-KR", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+}
+
+export default function DashboardPage() {
+  const { add, enabled } = useNotifications();
+
+  /* ===============================
+     상태 (서버 단일 진실)
+  =============================== */
+  const [state, setState] = useState({
+    isSeated: false,
+    seatedMinutes: 0,
+    detectedAt: null,
+    level: "normal",
+  });
+
+  /* 🔐 danger 중복 알림 방지 */
+  const prevLevelRef = useRef("normal");
+
+  /* ===============================
+     ✅ API Polling (5초)
+  =============================== */
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchState = async () => {
+      try {
+        const res = await fetch("/api/state/current");
+        const data = await res.json();
+
+        if (mounted) {
+          setState(data);
+        }
+      } catch {
+        // 서버 일시적 문제 → 무시 (UI 유지)
+      }
+    };
+
+    fetchState(); // 최초 1회
+    const id = setInterval(fetchState, 5000);
+
+    return () => {
+      mounted = false;
+      clearInterval(id);
+    };
+  }, []);
+
+  /* ===============================
+     🔔 danger 진입 시 알림 (1회)
+  =============================== */
+  useEffect(() => {
+    const prev = prevLevelRef.current;
+    const curr = state.level;
+
+    if (prev !== "danger" && curr === "danger") {
+      add({
+        type: "danger",
+        title: "착석 경고",
+        message: "장시간 상태가 감지되었습니다.",
+      });
+
+      if (enabled && "Notification" in window) {
+        if (Notification.permission === "granted") {
+          new Notification("착석 경고", {
+            body: "장시간 상태가 감지되었습니다. 휴식을 권장합니다.",
+          });
+        }
+      }
+    }
+
+    prevLevelRef.current = curr;
+  }, [state.level, add, enabled]);
+
+  const ui = useMemo(() => levelUI(state.level), [state.level]);
+
+  /* ===============================
+     렌더링
+  =============================== */
+  return (
+    <div
+      className={`rounded-3xl bg-gradient-to-br ${ui.bg} p-6 shadow-lg ring-1 ${ui.ring}`}
+    >
+      {/* 헤더 */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
+        <div>
+          <h2 className="text-xl font-extrabold">대시보드</h2>
+          <p className="text-sm text-slate-600">
+            실시간 착석 상태와 경고 단계를 표시합니다.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span
+            className={`${ui.badge} rounded-full px-3 py-1 text-sm font-bold text-white`}
+          >
+            {ui.title}
+          </span>
+
+          <span className="rounded-full bg-white/70 px-3 py-1 text-xs">
+            업데이트: {formatKoreanTime(state.detectedAt)}
+          </span>
+          <button
+            onClick={async () => {
+              if (!confirm("착석 기록을 초기화할까요?")) return;
+
+              await fetch("/api/state/reset", {
+                method: "POST",
+              });
+
+              // 즉시 UI 반영
+              setState({
+                isSeated: false,
+                seatedMinutes: 0,
+                detectedAt: null,
+                level: "normal",
+              });
+            }}
+            className="rounded-lg bg-slate-900 px-3 py-1 text-xs font-bold text-white hover:bg-slate-800"
+          >
+            초기화
+          </button>
+        </div>
+      </div>
+
+      {/* 카드 */}
+      <div className="mt-6 grid gap-4 md:grid-cols-3">
+        {/* 착석 상태 */}
+        <div className="rounded-2xl bg-white/70 p-5 ring-1">
+          <div className="text-xs text-slate-500">착석 상태</div>
+          <div className="mt-2 flex justify-between items-center">
+            <div className="text-3xl font-black">
+              {state.isSeated ? "착석" : "미착석"}
+            </div>
+            <div className="text-2xl">
+              {state.isSeated ? "✅" : "⛔️"}
+            </div>
+          </div>
+        </div>
+
+        {/* 착석 시간 */}
+        <div className="rounded-2xl bg-white/70 p-5 ring-1">
+          <div className="text-xs text-slate-500">현재 착석 시간</div>
+          <div className="mt-2 text-3xl font-black">
+            {state.seatedMinutes} <span className="text-base">min</span>
+          </div>
+        </div>
+
+        {/* 경고 안내 */}
+        <div className="rounded-2xl bg-white/70 p-5 ring-1">
+          <div className="text-xs text-slate-500">경고 안내</div>
+          <div className="mt-2 font-extrabold">{ui.desc}</div>
+        </div>
+      </div>
+
+      <div className="mt-4 text-xs text-slate-500 text-right">
+        Tip: 상태는 서버에서 계산되며 5초 주기로 동기화됩니다.
+      </div>
+    </div>
+  );
+}
